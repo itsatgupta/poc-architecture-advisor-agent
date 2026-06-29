@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Architecture Advisor Agent</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        header {
+            background: #0f172a;
+            padding: 24px 32px;
+            border-radius: 12px;
+            margin-bottom: 24px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-left: 4px solid #6366f1;
+        }
+
+        header h1 {
+            color: #ffffff;
+            font-size: 28px;
+            margin-bottom: 8px;
+        }
+
+        header p {
+            color: #cbd5e1;
+            font-size: 14px;
+        }
+
+        .container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            flex: 1;
+            max-width: 1400px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .card {
+            background: #1e293b;
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            border: 1px solid #334155;
+        }
+
+        .card h2 {
+            color: #e2e8f0;
+            font-size: 18px;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .card h2::before {
+            content: '';
+            display: inline-block;
+            width: 4px;
+            height: 4px;
+            background: #6366f1;
+            border-radius: 50%;
+        }
+
+        label {
+            display: block;
+            color: #cbd5e1;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        textarea {
+            background: #0f172a;
+            border: 1px solid #334155;
+            border-radius: 8px;
+            padding: 12px;
+            color: #e2e8f0;
+            font-family: inherit;
+            font-size: 14px;
+            resize: vertical;
+            min-height: 180px;
+            margin-bottom: 16px;
+            transition: border-color 0.2s;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: #6366f1;
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+        }
+
+        .button-group {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 8px;
+        }
+
+        button {
+            flex: 1;
+            background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(99, 102, 241, 0.3);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .hint {
+            color: #64748b;
+            font-size: 12px;
+            font-style: italic;
+            margin-bottom: 16px;
+        }
+
+        #output {
+            background: #0f172a;
+            border: 1px solid #334155;
+            border-radius: 8px;
+            padding: 16px;
+            color: #e2e8f0;
+            font-size: 14px;
+            line-height: 1.6;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            min-height: 400px;
+            overflow-y: auto;
+            flex: 1;
+        }
+
+        #output.loading {
+            color: #64748b;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid #334155;
+            border-top-color: #6366f1;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .error {
+            background: #7f1d1d;
+            color: #fecaca;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 16px;
+            border-left: 4px solid #dc2626;
+            font-size: 13px;
+        }
+
+        footer {
+            text-align: center;
+            color: #64748b;
+            font-size: 12px;
+            margin-top: 32px;
+            padding-top: 16px;
+            border-top: 1px solid #334155;
+        }
+
+        footer a {
+            color: #6366f1;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        footer a:hover {
+            color: #818cf8;
+        }
+
+        .sample-label {
+            color: #64748b;
+            font-size: 11px;
+            margin-bottom: 4px;
+            font-style: italic;
+        }
+
+        h3 {
+            color: #a1a5b4;
+            font-size: 13px;
+            margin-top: 16px;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        ul, ol {
+            margin-left: 20px;
+            color: #cbd5e1;
+        }
+
+        li {
+            margin-bottom: 8px;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>🏛️ Architecture Advisor Agent</h1>
+        <p>IT Services / ISVs</p>
+    </header>
+
+    <div class="container">
+        <div class="card">
+            <h2>System Requirements</h2>
+            <label for="systemInput">Describe your system:</label>
+            <div class="sample-label">Include: scale, team size, budget, key NFRs, existing tech</div>
+            <textarea id="systemInput">Scale: Enterprise platform serving 100k+ concurrent users
+Team Size: 25 engineers split across 3 teams (backend, frontend, data)
+Budget: $2M annually, prefer open-source where possible
+Key NFRs: 
+  - Sub-100ms latency for user queries (p99)
+  - 99.95% uptime SLA
+  - Ability to handle 10x traffic spikes in 5 minutes
+  - GDPR/SOC2 compliance required
+Existing Tech: 
+  - Monolithic Node.js/Express backend (600k LOC, 6 years old)
+  - PostgreSQL with read replicas
+  - React frontend, currently deployed on EC2 clusters
+  - Some legacy Python batch jobs for analytics
+Technical Debt: High coupling in backend, no async processing, manual deployments</textarea>
+            <div class="button-group">
+                <button onclick="analyzeArchitecture()">Analyze Architecture</button>
+                <button onclick="clearInput()">Clear</button>
+            </div>
+            <div class="hint">→ Click to get AI-powered architecture recommendations</div>
+        </div>
+
+        <div class="card">
+            <h2>Architecture Recommendations</h2>
+            <div id="errorContainer"></div>
+            <div id="output" class="loading">
+                <div class="spinner"></div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        Powered by Bharat AI · For more information connect <a href="mailto:atulmca@yahoo.com">atulmca@yahoo.com</a>
+    </footer>
+
+    <script>
+        function clearInput() {
+            document.getElementById('systemInput').value = '';
+            document.getElementById('output').textContent = '';
+            document.getElementById('errorContainer').innerHTML = '';
+        }
+
+        function formatOutput(text) {
+            let html = text;
+            
+            // Handle headings
+            html = html.replace(/^## (.+?)$/gm, '<h3>$1</h3>');
+            
+            // Handle bold
+            html = html.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+            
+            // Handle lists - convert to proper HTML
+            const lines = html.split('\n');
+            let inList = false;
+            let listType = 'ul';
+            let result = [];
+            
+            for (let i = 0; i < lines.length; i++) {
+                const line = lines[i];
+                const bulletMatch = line.match(/^[\s]*[-*]\s+(.+)$/);
+                const numberedMatch = line.match(/^[\s]*\d+\.\s+(.+)$/);
+                
+                if (bulletMatch || numberedMatch) {
+                    if (!inList) {
+                        inList = true;
+                        listType = numberedMatch ? 'ol' : 'ul';
+                        result.push(`<${listType}>`);
+                    } else if (numberedMatch && listType === 'ul') {
+                        result.push('</ul>');
+                        result.push('<ol>');
+                        listType = 'ol';
+                    } else if (bulletMatch && listType === 'ol') {
+                        result.push('</ol>');
+                        result.push('<ul>');
+                        listType = 'ul';
+                    }
+                    
+                    const content = bulletMatch ? bulletMatch[1] : numberedMatch[1];
+                    result.push(`<li>${content}</li>`);
+                } else {
+                    if (inList) {
+                        result.push(`</${listType}>`);
+                        inList = false;
+                    }
+                    if (line.trim()) {
+                        result.push(`<p>${line}</p>`);
+                    } else {
+                        result.push('<br>');
+                    }
+                }
+            }
+            
+            if (inList) {
+                result.push(`</${listType}>`);
+            }
+            
+            html = result.join('\n');
+            return html;
+        }
+
+        async function analyzeArchitecture() {
+            const systemInput = document.getElementById('systemInput').value.trim();
+            
+            if (!systemInput) {
+                showError('Please describe your system first');
+                return;
+            }
+            
+            clearError();
+            showLoading();
+            
+            const prompt = `You are a principal software architect with expertise in cloud-native systems.
+
+A client has described their system with these requirements:
+
+${systemInput}
+
+Please provide:
+
+1. **Top 2 Architecture Patterns** (e.g., microservices, event-driven, CQRS, serverless, monolith-first)
+
+For each pattern, provide:
+- **Pros**: Key advantages for this system
+- **Cons**: Key disadvantages and tradeoffs
+- **When it fits**: Scenarios where this excels
+- **When it doesn't**: Scenarios to avoid
+
+2. **Final Recommendation** with clear justification based on their constraints
+
+3. **Top 3 Architectural Risks** for this specific system and how to mitigate them
+
+Be opinionated. Give a clear, justified recommendation. Format your response clearly with sections and bullet points.`;
+
+            try {
+                const response = await fetch('/api/chat', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        model: 'claude-haiku-4-5-20251001',
+                        max_tokens: 2048,
+                        messages: [
+                            {
+                                role: 'user',
+                                content: prompt
+                            }
+                        ]
+                    })
+                });
+
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    throw new Error(errorData.error || `API error: ${response.status}`);
+                }
+
+                const data = await response.json();
+                const recommendation = data.content[0].text;
+                
+                document.getElementById('output').classList.remove('loading');
+                document.getElementById('output').innerHTML = formatOutput(recommendation);
+            } catch (error) {
+                showError(`Error: ${error.message}`);
+                document.getElementById('output').classList.remove('loading');
+                document.getElementById('output').textContent = '';
+            }
+        }
+
+        function showLoading() {
+            const output = document.getElementById('output');
+            output.classList.add('loading');
+            output.innerHTML = '<div class="spinner"></div>';
+        }
+
+        function showError(message) {
+            const errorContainer = document.getElementById('errorContainer');
+            errorContainer.innerHTML = `<div class="error">⚠️ ${message}</div>`;
+        }
+
+        function clearError() {
+            document.getElementById('errorContainer').innerHTML = '';
+        }
+
+        // Initialize output
+        document.getElementById('output').classList.remove('loading');
+        document.getElementById('output').textContent = 'Click "Analyze Architecture" to get recommendations for your system';
+    </script>
+</body>
+</html>

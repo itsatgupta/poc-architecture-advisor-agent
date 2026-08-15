@@ -10,388 +10,292 @@
             padding: 0;
             box-sizing: border-box;
         }
-
+        
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-            min-height: 100vh;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: #f8fafc;
+            color: #1e293b;
         }
-
+        
         header {
             background: #0f172a;
-            padding: 24px 32px;
-            border-radius: 12px;
-            margin-bottom: 24px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            border-left: 4px solid #6366f1;
+            color: white;
+            padding: 24px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
         }
-
-        header h1 {
-            color: #ffffff;
-            font-size: 28px;
+        
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .industry-tag {
+            display: inline-block;
+            background: rgba(99, 102, 241, 0.2);
+            color: #a5b4fc;
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
             margin-bottom: 8px;
         }
-
-        header p {
+        
+        h1 {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+        
+        .subtitle {
             color: #cbd5e1;
             font-size: 14px;
         }
-
+        
         .container {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 24px;
-            flex: 1;
-            max-width: 1400px;
+            max-width: 1200px;
             margin: 0 auto;
-            width: 100%;
-        }
-
-        @media (max-width: 768px) {
-            .container {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        .card {
-            background: #1e293b;
-            border-radius: 12px;
             padding: 24px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            display: flex;
-            flex-direction: column;
-            border: 1px solid #334155;
         }
-
-        .card h2 {
-            color: #e2e8f0;
-            font-size: 18px;
-            margin-bottom: 16px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .card h2::before {
-            content: '';
-            display: inline-block;
-            width: 4px;
-            height: 4px;
-            background: #6366f1;
-            border-radius: 50%;
-        }
-
-        label {
-            display: block;
-            color: #cbd5e1;
-            font-size: 13px;
-            font-weight: 600;
-            margin-bottom: 8px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        textarea {
-            background: #0f172a;
-            border: 1px solid #334155;
+        
+        .card {
+            background: white;
             border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+        
+        .input-section h2 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: #0f172a;
+        }
+        
+        textarea {
+            width: 100%;
             padding: 12px;
-            color: #e2e8f0;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
             font-family: inherit;
             font-size: 14px;
             resize: vertical;
-            min-height: 180px;
-            margin-bottom: 16px;
-            transition: border-color 0.2s;
+            min-height: 120px;
+            color: #1e293b;
         }
-
+        
         textarea:focus {
             outline: none;
             border-color: #6366f1;
             box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
         }
-
-        .button-group {
+        
+        .button-row {
             display: flex;
             gap: 12px;
-            margin-bottom: 8px;
+            margin-top: 16px;
+            align-items: center;
         }
-
+        
         button {
-            flex: 1;
-            background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+            background: #6366f1;
             color: white;
             border: none;
-            padding: 12px 20px;
-            border-radius: 8px;
+            padding: 10px 24px;
+            border-radius: 6px;
             font-size: 14px;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.2s;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
         }
-
-        button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 16px rgba(99, 102, 241, 0.3);
+        
+        button:hover:not(:disabled) {
+            background: #4f46e5;
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
         }
-
-        button:active {
-            transform: translateY(0);
-        }
-
+        
         button:disabled {
-            opacity: 0.6;
+            background: #cbd5e1;
             cursor: not-allowed;
-            transform: none;
         }
-
+        
         .hint {
-            color: #64748b;
             font-size: 12px;
+            color: #64748b;
             font-style: italic;
-            margin-bottom: 16px;
         }
-
-        #output {
-            background: #0f172a;
-            border: 1px solid #334155;
-            border-radius: 8px;
+        
+        .output-section {
+            margin-top: 24px;
+        }
+        
+        .output-section h2 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: #0f172a;
+        }
+        
+        .output-panel {
+            background: #f1f5f9;
+            border-left: 4px solid #6366f1;
             padding: 16px;
-            color: #e2e8f0;
-            font-size: 14px;
+            border-radius: 6px;
             line-height: 1.6;
             white-space: pre-wrap;
             word-wrap: break-word;
-            min-height: 400px;
-            overflow-y: auto;
-            flex: 1;
+            font-size: 14px;
+            color: #1e293b;
+            min-height: 100px;
         }
-
-        #output.loading {
-            color: #64748b;
+        
+        .loading {
             display: flex;
             align-items: center;
-            justify-content: center;
+            gap: 8px;
+            color: #6366f1;
         }
-
+        
         .spinner {
             display: inline-block;
-            width: 20px;
-            height: 20px;
-            border: 3px solid #334155;
+            width: 16px;
+            height: 16px;
+            border: 2px solid #e2e8f0;
             border-top-color: #6366f1;
             border-radius: 50%;
             animation: spin 0.8s linear infinite;
         }
-
+        
         @keyframes spin {
             to { transform: rotate(360deg); }
         }
-
+        
         .error {
-            background: #7f1d1d;
-            color: #fecaca;
+            background: #fee2e2;
+            color: #991b1b;
             padding: 12px;
-            border-radius: 8px;
-            margin-bottom: 16px;
+            border-radius: 6px;
             border-left: 4px solid #dc2626;
-            font-size: 13px;
+            margin-top: 16px;
         }
-
+        
         footer {
             text-align: center;
+            padding: 20px;
             color: #64748b;
             font-size: 12px;
-            margin-top: 32px;
-            padding-top: 16px;
-            border-top: 1px solid #334155;
+            margin-top: 40px;
         }
-
+        
         footer a {
             color: #6366f1;
             text-decoration: none;
-            transition: color 0.2s;
         }
-
+        
         footer a:hover {
-            color: #818cf8;
+            text-decoration: underline;
         }
-
-        .sample-label {
-            color: #64748b;
-            font-size: 11px;
-            margin-bottom: 4px;
-            font-style: italic;
-        }
-
-        h3 {
-            color: #a1a5b4;
-            font-size: 13px;
-            margin-top: 16px;
-            margin-bottom: 8px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        ul, ol {
-            margin-left: 20px;
-            color: #cbd5e1;
-        }
-
-        li {
-            margin-bottom: 8px;
-            line-height: 1.6;
+        
+        .output-text {
+            display: block;
+            margin-top: 8px;
         }
     </style>
 </head>
 <body>
     <header>
-        <h1>🏛️ Architecture Advisor Agent</h1>
-        <p>IT Services / ISVs</p>
-    </header>
-
-    <div class="container">
-        <div class="card">
-            <h2>System Requirements</h2>
-            <label for="systemInput">Describe your system:</label>
-            <div class="sample-label">Include: scale, team size, budget, key NFRs, existing tech</div>
-            <textarea id="systemInput">Scale: Enterprise platform serving 100k+ concurrent users
-Team Size: 25 engineers split across 3 teams (backend, frontend, data)
-Budget: $2M annually, prefer open-source where possible
-Key NFRs: 
-  - Sub-100ms latency for user queries (p99)
-  - 99.95% uptime SLA
-  - Ability to handle 10x traffic spikes in 5 minutes
-  - GDPR/SOC2 compliance required
-Existing Tech: 
-  - Monolithic Node.js/Express backend (600k LOC, 6 years old)
-  - PostgreSQL with read replicas
-  - React frontend, currently deployed on EC2 clusters
-  - Some legacy Python batch jobs for analytics
-Technical Debt: High coupling in backend, no async processing, manual deployments</textarea>
-            <div class="button-group">
-                <button onclick="analyzeArchitecture()">Analyze Architecture</button>
-                <button onclick="clearInput()">Clear</button>
-            </div>
-            <div class="hint">→ Click to get AI-powered architecture recommendations</div>
+        <div class="header-content">
+            <div class="industry-tag">IT Services / ISVs</div>
+            <h1>Architecture Advisor Agent</h1>
+            <p class="subtitle">Get expert recommendations for your cloud-native system architecture</p>
         </div>
-
-        <div class="card">
-            <h2>Architecture Recommendations</h2>
-            <div id="errorContainer"></div>
-            <div id="output" class="loading">
-                <div class="spinner"></div>
+    </header>
+    
+    <div class="container">
+        <div class="card input-section">
+            <h2>Describe Your System</h2>
+            <textarea id="systemDescription" placeholder="Scale, team size, budget, key NFRs, existing tech...">Enterprise SaaS platform serving 50,000+ users globally. Scale: 2M API calls/day, peak 500 req/sec. Team size: 12 engineers (backend), distributed across 3 time zones. Budget: moderate; existing cloud: AWS (EC2, RDS). Key NFRs: 99.95% uptime, sub-200ms p95 latency, ability to handle 10x growth in next 18 months. Current tech stack: Node.js/Express monolith, PostgreSQL, Redis. Pain points: deployment bottlenecks, scaling during peak hours, hard to onboard new features without impacting existing services.</textarea>
+            <div class="button-row">
+                <button onclick="analyzeArchitecture()">Analyze Architecture</button>
+                <span class="hint">✨ Try it →</span>
+            </div>
+            <div id="error" class="error" style="display: none;"></div>
+        </div>
+        
+        <div class="card output-section">
+            <h2>Architecture Analysis</h2>
+            <div id="output" class="output-panel">
+                Architecture recommendations will appear here...
             </div>
         </div>
     </div>
-
+    
     <footer>
         Powered by Bharat AI · For more information connect <a href="mailto:atulmca@yahoo.com">atulmca@yahoo.com</a>
     </footer>
-
+    
     <script>
-        function clearInput() {
-            document.getElementById('systemInput').value = '';
-            document.getElementById('output').textContent = '';
-            document.getElementById('errorContainer').innerHTML = '';
-        }
-
-        function formatOutput(text) {
-            let html = text;
-            
-            // Handle headings
-            html = html.replace(/^## (.+?)$/gm, '<h3>$1</h3>');
-            
-            // Handle bold
-            html = html.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
-            
-            // Handle lists - convert to proper HTML
-            const lines = html.split('\n');
-            let inList = false;
-            let listType = 'ul';
-            let result = [];
-            
-            for (let i = 0; i < lines.length; i++) {
-                const line = lines[i];
-                const bulletMatch = line.match(/^[\s]*[-*]\s+(.+)$/);
-                const numberedMatch = line.match(/^[\s]*\d+\.\s+(.+)$/);
-                
-                if (bulletMatch || numberedMatch) {
-                    if (!inList) {
-                        inList = true;
-                        listType = numberedMatch ? 'ol' : 'ul';
-                        result.push(`<${listType}>`);
-                    } else if (numberedMatch && listType === 'ul') {
-                        result.push('</ul>');
-                        result.push('<ol>');
-                        listType = 'ol';
-                    } else if (bulletMatch && listType === 'ol') {
-                        result.push('</ol>');
-                        result.push('<ul>');
-                        listType = 'ul';
-                    }
-                    
-                    const content = bulletMatch ? bulletMatch[1] : numberedMatch[1];
-                    result.push(`<li>${content}</li>`);
-                } else {
-                    if (inList) {
-                        result.push(`</${listType}>`);
-                        inList = false;
-                    }
-                    if (line.trim()) {
-                        result.push(`<p>${line}</p>`);
-                    } else {
-                        result.push('<br>');
-                    }
-                }
-            }
-            
-            if (inList) {
-                result.push(`</${listType}>`);
-            }
-            
-            html = result.join('\n');
-            return html;
-        }
-
         async function analyzeArchitecture() {
-            const systemInput = document.getElementById('systemInput').value.trim();
+            const systemDescription = document.getElementById('systemDescription').value.trim();
+            const outputDiv = document.getElementById('output');
+            const errorDiv = document.getElementById('error');
             
-            if (!systemInput) {
-                showError('Please describe your system first');
+            if (!systemDescription) {
+                errorDiv.textContent = 'Please describe your system.';
+                errorDiv.style.display = 'block';
                 return;
             }
             
-            clearError();
-            showLoading();
+            errorDiv.style.display = 'none';
+            outputDiv.innerHTML = '<div class="loading"><div class="spinner"></div> Analyzing architecture...</div>';
             
             const prompt = `You are a principal software architect with expertise in cloud-native systems.
 
-A client has described their system with these requirements:
+Analyze this system and provide:
 
-${systemInput}
+System Description:
+${systemDescription}
 
-Please provide:
+Provide EXACTLY this structure:
 
-1. **Top 2 Architecture Patterns** (e.g., microservices, event-driven, CQRS, serverless, monolith-first)
+## Top 2 Architecture Patterns
 
-For each pattern, provide:
-- **Pros**: Key advantages for this system
-- **Cons**: Key disadvantages and tradeoffs
-- **When it fits**: Scenarios where this excels
-- **When it doesn't**: Scenarios to avoid
+### Pattern 1: [Name]
+**Pros:**
+- [Pros listed as bullet points]
 
-2. **Final Recommendation** with clear justification based on their constraints
+**Cons:**
+- [Cons listed as bullet points]
 
-3. **Top 3 Architectural Risks** for this specific system and how to mitigate them
+**When it Fits:**
+- [Scenarios listed as bullet points]
 
-Be opinionated. Give a clear, justified recommendation. Format your response clearly with sections and bullet points.`;
+**When it Doesn't:**
+- [Scenarios listed as bullet points]
 
+### Pattern 2: [Name]
+**Pros:**
+- [Pros listed as bullet points]
+
+**Cons:**
+- [Cons listed as bullet points]
+
+**When it Fits:**
+- [Scenarios listed as bullet points]
+
+**When it Doesn't:**
+- [Scenarios listed as bullet points]
+
+## Final Recommendation
+[Clear, opinionated recommendation with justification in 2-3 paragraphs]
+
+## Top 3 Architectural Risks
+1. [Risk with brief explanation]
+2. [Risk with brief explanation]
+3. [Risk with brief explanation]`;
+            
             try {
                 const response = await fetch('/api/chat', {
                     method: 'POST',
@@ -409,42 +313,72 @@ Be opinionated. Give a clear, justified recommendation. Format your response cle
                         ]
                     })
                 });
-
-                if (!response.ok) {
-                    const errorData = await response.json();
-                    throw new Error(errorData.error || `API error: ${response.status}`);
-                }
-
-                const data = await response.json();
-                const recommendation = data.content[0].text;
                 
-                document.getElementById('output').classList.remove('loading');
-                document.getElementById('output').innerHTML = formatOutput(recommendation);
+                if (!response.ok) {
+                    const error = await response.text();
+                    throw new Error(`API error: ${response.status} - ${error}`);
+                }
+                
+                const data = await response.json();
+                const result = data.content[0].text;
+                
+                outputDiv.innerHTML = '';
+                const lines = result.split('\n');
+                
+                lines.forEach(line => {
+                    if (line.startsWith('##')) {
+                        const heading = line.replace(/^##\s*/, '').trim();
+                        const headingEl = document.createElement('div');
+                        headingEl.style.fontSize = '16px';
+                        headingEl.style.fontWeight = '600';
+                        headingEl.style.marginTop = '20px';
+                        headingEl.style.marginBottom = '12px';
+                        headingEl.style.color = '#0f172a';
+                        headingEl.textContent = heading;
+                        outputDiv.appendChild(headingEl);
+                    } else if (line.startsWith('###')) {
+                        const subheading = line.replace(/^###\s*/, '').trim();
+                        const subheadingEl = document.createElement('div');
+                        subheadingEl.style.fontSize = '14px';
+                        subheadingEl.style.fontWeight = '600';
+                        subheadingEl.style.marginTop = '16px';
+                        subheadingEl.style.marginBottom = '8px';
+                        subheadingEl.style.color = '#334155';
+                        subheadingEl.textContent = subheading;
+                        outputDiv.appendChild(subheadingEl);
+                    } else if (line.match(/^[\-\*]\s/) || line.match(/^\d+\.\s/)) {
+                        const item = line.replace(/^[\-\*\d+\.]\s*/, '').trim();
+                        const itemEl = document.createElement('div');
+                        itemEl.style.marginLeft = '16px';
+                        itemEl.style.marginBottom = '6px';
+                        itemEl.style.fontSize = '14px';
+                        const bullet = line.match(/^\d+\./) ? line.match(/^\d+\./)[0] : '•';
+                        itemEl.textContent = `${bullet} ${item}`;
+                        outputDiv.appendChild(itemEl);
+                    } else if (line.trim()) {
+                        const paraEl = document.createElement('div');
+                        paraEl.style.marginTop = '8px';
+                        paraEl.style.marginBottom = '8px';
+                        paraEl.style.fontSize = '14px';
+                        paraEl.style.lineHeight = '1.6';
+                        paraEl.textContent = line.trim();
+                        outputDiv.appendChild(paraEl);
+                    }
+                });
+                
             } catch (error) {
-                showError(`Error: ${error.message}`);
-                document.getElementById('output').classList.remove('loading');
-                document.getElementById('output').textContent = '';
+                errorDiv.textContent = `Error: ${error.message}`;
+                errorDiv.style.display = 'block';
+                outputDiv.innerHTML = '';
             }
         }
-
-        function showLoading() {
-            const output = document.getElementById('output');
-            output.classList.add('loading');
-            output.innerHTML = '<div class="spinner"></div>';
-        }
-
-        function showError(message) {
-            const errorContainer = document.getElementById('errorContainer');
-            errorContainer.innerHTML = `<div class="error">⚠️ ${message}</div>`;
-        }
-
-        function clearError() {
-            document.getElementById('errorContainer').innerHTML = '';
-        }
-
-        // Initialize output
-        document.getElementById('output').classList.remove('loading');
-        document.getElementById('output').textContent = 'Click "Analyze Architecture" to get recommendations for your system';
+        
+        // Allow Enter key (with Shift for newline)
+        document.getElementById('systemDescription').addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' && e.ctrlKey) {
+                analyzeArchitecture();
+            }
+        });
     </script>
 </body>
 </html>
